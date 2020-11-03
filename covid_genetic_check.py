@@ -129,14 +129,20 @@ def get_snp_data(individual_id):
     
     snp1 = SNPs('rs1234', 'AG')
     snp2 = SNPs('rs5678', 'GT')
+    snp3 = SNPs('rs12329760', 'CT')
+    snp4 = SNPs('rs75603675', 'AT')
 
     if individual_id == '6117323d':
         snp1 = SNPs('rs1234', 'AA')
         snp2 = SNPs('rs5678', 'GG')
+        snp3 = SNPs('rs12329760', 'CC')
+        snp4 = SNPs('rs75603675', 'AA')
 
     if individual_id == '4c2a904b':
         snp1 = SNPs('rs1234', 'GG')
         snp2 = SNPs('rs5678', 'TT')
+        snp3 = SNPs('rs12329760', 'TT')
+        snp4 = SNPs('rs75603675', 'TT')
 
     return([snp1, snp2])
 
