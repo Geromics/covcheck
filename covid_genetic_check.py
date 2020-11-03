@@ -69,7 +69,7 @@ def score_snps(snp_data):
     for snp in snp_data:
         print(snp)
 
-        if snp.id == 'rsID1234':
+        if snp.id == 'rs1234':
             # Each A adds +05
             if snp.alleles == 'AA':
                 snp_score = snp_score + 10
@@ -78,7 +78,7 @@ def score_snps(snp_data):
             if snp.alleles == 'GA':
                 snp_score = snp_score +  5
 
-        if snp.id == 'rsID5678':
+        if snp.id == 'rs5678':
             # Each T adds +10
             if snp.alleles == 'TT':
                 snp_score = snp_score + 20
@@ -127,16 +127,16 @@ def get_snp_data(individual_id):
     Note, we mock the data here!
     """
     
-    snp1 = SNPs('rsID1234', 'AG')
-    snp2 = SNPs('rsID5678', 'GT')
+    snp1 = SNPs('rs1234', 'AG')
+    snp2 = SNPs('rs5678', 'GT')
 
     if individual_id == '6117323d':
-        snp1 = SNPs('rsID1234', 'AA')
-        snp2 = SNPs('rsID5678', 'GG')
+        snp1 = SNPs('rs1234', 'AA')
+        snp2 = SNPs('rs5678', 'GG')
 
     if individual_id == '4c2a904b':
-        snp1 = SNPs('rsID1234', 'GG')
-        snp2 = SNPs('rsID5678', 'TT')
+        snp1 = SNPs('rs1234', 'GG')
+        snp2 = SNPs('rs5678', 'TT')
 
     return([snp1, snp2])
 
