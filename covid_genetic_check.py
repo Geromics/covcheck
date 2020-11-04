@@ -1,27 +1,126 @@
+import json
 
-# Using Namedtuples instead of classes for now for prototyping
+# Using simple Namedtuples here instead of classes for prototyping...
 from collections import namedtuple
 
-# Construct a namedtuple class for (crudely) working with SNP data
-SNPs = namedtuple('SNP', ['id', 'alleles'])
+Individual = namedtuple('Individual', 'id age snps')
 
 
-# TODO, add 'scores' for the real SNPs.
 
 # TODO, demo generating different text for different risk factors.
 
 # TODO, add logging instead of prints.
 
-# TODO, think about data structures a bit more.
-
-# TODO, update to read accessor functions.
+# TODO, update to read real accessor functions.
 
 
-def result_for_individual(individual_id):
-    snp_score, age_score = score_individual(individual_id)
 
-    print(snp_score, age_score)
+
+def main():
+    """The main function is basically a test of all the functions in the
+    analysis 'framework' chained together in order.
+
+    """
+    print("Executing analysis")
+
+    for individual_id in ["6117323d", "4c2a904b"]:
+        individual_data = get_analysis_data(individual_id)
+        risk_score = score_individual(individual_data)
+        analysis_text = result_for_individual(*risk_score)
+        
+        print(json.dumps(individual_data._asdict()))
+        print(risk_score)
+        print(analysis_text)
+
+    print("Done")
+
+
+
+def get_analysis_data(individual_id):
+    """Get the data used by the analysis for the given individual_id.
+
+    Note, we mock the data here!
+
+    Later we will 'call out' to some API or other.
+
+    """
+    individual_data = None
     
+    if individual_id == '6117323d':
+        individual_data = Individual(
+            id = individual_id,
+            age = 93,
+            snps = {}
+        )
+        individual_data.snps['rs1234'] = 'AA'
+        individual_data.snps['rs5678'] = 'GG'
+        individual_data.snps['rs12329760'] = 'CC'
+        individual_data.snps['rs75603675'] = 'CC'
+
+    if individual_id == '4c2a904b':
+        individual_data = Individual(
+            id = individual_id,
+            age = 7,
+            snps = {}
+        )
+        individual_data.snps['rs1234'] = 'AG'
+        individual_data.snps['rs5678'] = 'GT'
+        individual_data.snps['rs12329760'] = 'CT'
+        individual_data.snps['rs75603675'] = 'AC'
+
+    return(individual_data)
+
+
+
+def score_individual(individual_data):
+    """Produce the 'covcheck score' from the given data.
+
+    Currently snp scores are based on this preprint:
+    https://www.researchsquare.com/article/rs-37798/v1
+
+    ##reference=GRCh38.p12
+    chr21 41480570 rs12329760 C T . . .
+    chr21 41507982 rs75603675 C A . . .
+
+    rs12329760, TMPRSS2(-), V197M, G>A, V[GTG] > M[ATG]
+    C is the risk allele, T is 'protective'
+
+    rs75603675, TMPRSS2(-), G008V, G>T, G[GGT] > V[GTT]
+    A is the risk allele, C is 'protective'
+
+    Spearman’s correlation with CFR:
+    ρ = -0.464, P = 0.0157 for V197M C>T (G>A)
+    ρ = +0.713, P = 0.0018 for G008V C>A (G>T)
+
+    The higher the score, the greater your genetic risk of severe
+    COVID-19 infection.
+
+    """    
+    snp_score = 0
+    age_score = 0
+
+    if individual_data.age > 80:
+        age_score = age_score + 128
+    if individual_data.age > 40:
+        age_score = age_score +  16
+
+    # TODO: Remove magic knowledge using SNP tuple
+    for snp_id, alleles in individual_data.snps.items():
+        if snp_id == 'rs12329760':
+            # Each C adds 0.2320
+            snp_score = snp_score + ( alleles.count("C") * 0.2320 )
+
+        if snp_id == 'rs75603675':
+            # Each A adds 0.3565
+            snp_score = snp_score + ( alleles.count("A") * 0.3565 )
+
+    # TODO: Remove magic knowledge here somehowx
+    return age_score, snp_score
+
+
+
+def result_for_individual(snp_score, age_score):
+
     a = describe_snp_score(snp_score)
     b = describe_age_score(age_score)
     c = describe_interaction(snp_score, age_score)
@@ -35,140 +134,9 @@ def describe_age_score(snp_score):
     return "Man you're old!"
 
 def describe_interaction(snp_score, age_score):
-    return "Although your genome does not put you at increased risk, your age is a significant factor that does put you at above average risk of severe Covid 19 infection. You should consider taking extra precautions such as hand washing, mask wearing and social distancing."
-
-
-
-def score_individual(individual_id):
-    """Produce a 'covcheck score' for a given individual_id."""
-    print(f"Getting private data for individual_id: {individual_id}")
-
-    snp_data = get_snp_data(individual_id)
-    print(snp_data)
-
-    age_data = get_age_data(individual_id)
-    print(age_data)
-
-    snp_score = score_snps(snp_data)
-    age_score = score_ages(age_data)
-
-    # I was thinking to produce a combined score, but the information
-    # we want to give to the user is age specific.
-    return(snp_score, age_score)
-
-
-
-def score_snps(snp_data):
-    """Use SNP data to produce a 'covcheck score' based on SNPs.
-
-    Note, we mock the analysis here!
-    """
-    
-    snp_score = 0
-    
-    for snp in snp_data:
-        print(snp)
-
-        if snp.id == 'rs1234':
-            # Each A adds +05
-            if snp.alleles == 'AA':
-                snp_score = snp_score + 10
-            if snp.alleles == 'AG':
-                snp_score = snp_score +  5
-            if snp.alleles == 'GA':
-                snp_score = snp_score +  5
-
-        if snp.id == 'rs5678':
-            # Each T adds +10
-            if snp.alleles == 'TT':
-                snp_score = snp_score + 20
-            if snp.alleles == 'GT':
-                snp_score = snp_score + 10
-            if snp.alleles == 'TG':
-                snp_score = snp_score + 10
-
-    return snp_score
-
-
-
-def score_ages(age):
-    """Use age data to produce a 'covcheck score' based on age.
-
-    Note, we mock the analysis here!
-    """
-    
-    age_score = 0
-
-    if age is None:
-        return None
-
-    if age > 80:
-        age_score = age_score + 128
-    if age > 60:
-        age_score = age_score +  64
-    if age > 50:
-        age_score = age_score +  32
-    if age > 40:
-        age_score = age_score +  16
-    if age > 30:
-        age_score = age_score +   8
-    if age > 20:
-        age_score = age_score +   4
-    if age > 10:
-        age_score = age_score +   2
-
-    return age_score
-
-
-
-def get_snp_data(individual_id):
-    """Return the analysis specific SNPs for the given individual_id.
-
-    Note, we mock the data here!
-    """
-    
-    snp1 = SNPs('rs1234', 'AG')
-    snp2 = SNPs('rs5678', 'GT')
-    snp3 = SNPs('rs12329760', 'CT')
-    snp4 = SNPs('rs75603675', 'AT')
-
-    if individual_id == '6117323d':
-        snp1 = SNPs('rs1234', 'AA')
-        snp2 = SNPs('rs5678', 'GG')
-        snp3 = SNPs('rs12329760', 'CC')
-        snp4 = SNPs('rs75603675', 'AA')
-
-    if individual_id == '4c2a904b':
-        snp1 = SNPs('rs1234', 'GG')
-        snp2 = SNPs('rs5678', 'TT')
-        snp3 = SNPs('rs12329760', 'TT')
-        snp4 = SNPs('rs75603675', 'TT')
-
-    return([snp1, snp2])
-
-def get_age_data(individual_id):
-    """Return the age of the given individual_id, if available.
-
-    Note, we mock the data here!
-    """
-    
-    age = None
-
-    if individual_id == '6117323d':
-        age = 93
-    
-    if individual_id == '4c2a904b':
-        age = 7
-
-    return(age)
-
+    return "Although your genome does not put you at increased risk, your age is a significant factor that does put you at above average risk of severe COVID 19 infection. You should consider taking extra precautions such as hand washing, mask wearing and social distancing."
 
 
 if __name__ == "__main__":
-    print("Executing analysis")
-
-    print(result_for_individual("6117323d"))
-    print(result_for_individual("4c2a904b"))
-    print(result_for_individual("deadbeef"))
-
-    print("Done")
+    main()
+    
