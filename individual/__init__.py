@@ -6,20 +6,47 @@ from collections import namedtuple
 
 Individual = namedtuple('Individual', 'id age snps')
 
+# TODO: Make an individual Class, and have a bit of class data for the
+# mock individuals.
+
+
+def get_individual_from_file(filename =
+                             'test/data/individuals/deadbeef.json'):
+    
+    with open(filename, 'r') as f:
+        individual_string = f.read()
+        individual_json = json.loads(individual_string)
+    return individual_from_json(individual_json)
+
 
 def write_mock_individuals():
+    """Helper function to create some data for testing."""
     individuals = get_mock_individuals();
 
+    for iid, i in individuals.items():
+        f = open(f"test/data/individuals/{iid}.json", "w")
 
-def print_json_individual(individual = None):
-    if individual is None:
-        individual = get_mock_individual()
-
-    print(json.dumps(individual._asdict()))
+        with f:
+            f.write(get_json_individual(i))
 
 
-def get_mock_individual(individual_id = 'deadbeef'):
-    """Return data for a single mock 'individual' *for testing*."""
+def individual_to_json(individual = None):
+    """Get the individual object as a json string."""
+    return json.dumps(individual._asdict())
+
+
+def individual_from_json(individual_json = None):
+    """Get the individual object as a json string."""
+
+    return Individual(
+        id = individual_json['id'],
+        age = individual_json['age'],
+        snps = individual_json['snps']
+    )
+
+
+def get_mock_individual(individual_id = None):
+    """Return a single mock 'individual' for testing."""
 
     individuals = get_mock_individuals();
 
@@ -27,7 +54,7 @@ def get_mock_individual(individual_id = 'deadbeef'):
 
 
 def get_mock_individuals():
-    """Return a 'database' of mock individuals *for testing*."""
+    """Return a 'database' of mock individuals for testing."""
 
     individuals = {}
 
@@ -64,6 +91,8 @@ def get_mock_individuals():
     return individuals
 
 
+if __name__ == '__main__':
+    #write_mock_individuals()
 
-
-
+    i = get_individual_from_file()
+    print(i)
