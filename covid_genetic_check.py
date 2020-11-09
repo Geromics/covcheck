@@ -2,9 +2,7 @@ import json
 
 # Using simple Namedtuples here instead of classes for prototyping...
 from collections import namedtuple
-
-Individual = namedtuple('Individual', 'id age snps')
-
+from individual import get_mock_individual
 
 
 # TODO, demo generating different text for different risk factors.
@@ -12,8 +10,6 @@ Individual = namedtuple('Individual', 'id age snps')
 # TODO, add logging instead of prints.
 
 # TODO, update to read real accessor functions.
-
-
 
 
 def main():
@@ -35,7 +31,6 @@ def main():
     print("Done")
 
 
-
 def get_analysis_data(individual_id):
     """Get the data used by the analysis for the given individual_id.
 
@@ -44,32 +39,9 @@ def get_analysis_data(individual_id):
     Later we will 'call out' to some API or other.
 
     """
-    individual_data = None
-    
-    if individual_id == '6117323d':
-        individual_data = Individual(
-            id = individual_id,
-            age = 93,
-            snps = {}
-        )
-        individual_data.snps['rs1234'] = 'AA'
-        individual_data.snps['rs5678'] = 'GG'
-        individual_data.snps['rs12329760'] = 'CC'
-        individual_data.snps['rs75603675'] = 'CC'
-
-    if individual_id == '4c2a904b':
-        individual_data = Individual(
-            id = individual_id,
-            age = 7,
-            snps = {}
-        )
-        individual_data.snps['rs1234'] = 'AG'
-        individual_data.snps['rs5678'] = 'GT'
-        individual_data.snps['rs12329760'] = 'CT'
-        individual_data.snps['rs75603675'] = 'AC'
+    individual_data = get_mock_individual(individual_id)
 
     return(individual_data)
-
 
 
 def score_individual(individual_data):
@@ -118,7 +90,6 @@ def score_individual(individual_data):
     return age_score, snp_score
 
 
-
 def result_for_individual(snp_score, age_score):
 
     a = describe_snp_score(snp_score)
@@ -139,4 +110,3 @@ def describe_interaction(snp_score, age_score):
 
 if __name__ == "__main__":
     main()
-    
