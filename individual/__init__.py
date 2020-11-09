@@ -10,7 +10,7 @@ Individual = namedtuple('Individual', 'id age snps')
 # mock individuals.
 
 
-def get_individual_from_file(filename =
+def individual_from_file(filename =
                              'test/data/individuals/deadbeef.json'):
     
     with open(filename, 'r') as f:
@@ -36,7 +36,10 @@ def individual_to_json(individual = None):
 
 
 def individual_from_json(individual_json = None):
-    """Get the individual object as a json string."""
+    """Get the individual object from a json string (or dict)."""
+
+    if type(individual_json) is str:
+        individual_json = json.loads(individual_json)
 
     return Individual(
         id = individual_json['id'],
@@ -48,12 +51,12 @@ def individual_from_json(individual_json = None):
 def get_mock_individual(individual_id = None):
     """Return a single mock 'individual' for testing."""
 
-    individuals = get_mock_individuals();
+    individuals = mock_individuals();
 
     return individuals[individual_id]
 
 
-def get_mock_individuals():
+def mock_individuals():
     """Return a 'database' of mock individuals for testing."""
 
     individuals = {}
@@ -94,5 +97,5 @@ def get_mock_individuals():
 if __name__ == '__main__':
     #write_mock_individuals()
 
-    i = get_individual_from_file()
+    i = individual_from_file()
     print(i)
