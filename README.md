@@ -1,10 +1,6 @@
 Note that this is work in progress!
 
-# Covcheck Backend
-
-Each of the 2SNP projects have a specific back end to perform their specific analysis. This repo contains the code for the CovCheck back end.
-
-
+# CovCheck
 
     Currently snp scores are based on this preprint:
     https://www.researchsquare.com/article/rs-37798/v1
