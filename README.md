@@ -1,15 +1,22 @@
-CovCheck takes in a simple 'genome file' in JSON format and produces a genome report 
+The CovCheck analysis computes a personal genome report indicating
+'risk of severe symptoms' from COVID-19 infection.
+
+The analysis is based on published, peer-reviewed studies.
+https://www.covid19hg.org/publications/
+
+Personal genome data is read from a simple 'genome file' in JSON
+format
 
 Note that this is work in progress!
 
-# CovCheck
+## CovCheck
 
-TODO: Add cli
-
-
-TODO: It would help if you had a one-sentence description of your project in the README file to set the context.
+### Installation and Usage
 
 TODO: You could also include the installation instructions and show some examples of usage.
+
+
+TODO: Add cli
 
 TODO: If you have dependencies, you should absolutely list them with their expected versions in a requirements.txt file or a higher-level tool such as flit, poetry, or Pipenv.
 
@@ -27,7 +34,6 @@ TODO: For example, you appear to be calling get_report() with arguments in the w
 
 
 
-https://www.covid19hg.org/publications/
 
 
 # Covcheck Backend
