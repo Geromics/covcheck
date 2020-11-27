@@ -1,6 +1,39 @@
+CovCheck takes in a simple 'genome file' in JSON format and produces a genome report 
+
 Note that this is work in progress!
 
 # CovCheck
+
+TODO: Add cli
+
+
+TODO: It would help if you had a one-sentence description of your project in the README file to set the context.
+
+TODO: You could also include the installation instructions and show some examples of usage.
+
+TODO: If you have dependencies, you should absolutely list them with their expected versions in a requirements.txt file or a higher-level tool such as flit, poetry, or Pipenv.
+
+TODO: A common pattern to mark an unfinished code is to raise a NotImplementedError, which will be noticed at runtime:
+
+@classmethod
+def from_api(cls, url):
+    raise NotImplementedError  # TODO
+
+TODO: I'd also recommend using a few tools to automatically take care of code formatting (black), flag style-related problems (flake8), as well as warn about potential bugs (pylint).
+
+TODO: For example, you appear to be calling get_report() with arguments in the wrong order.
+
+
+
+
+
+https://www.covid19hg.org/publications/
+
+
+# Covcheck Backend
+
+Each of the 2SNP projects have a specific back end to perform their specific analysis. This repo contains the code for the CovCheck back end.
+
 
     Currently snp scores are based on this preprint:
     https://www.researchsquare.com/article/rs-37798/v1
