@@ -4,6 +4,10 @@ def score_individual_by_age(individual):
     """Score an individuals 'COVID risk' by age.
 
     TODO: Use real risk data for age!
+
+    https://www.bmj.com/content/370/bmj.m325
+    https://ourworldindata.org/mortality-risk-covid#case-fatality-rate-of-covid-19-by-age
+
     """
     age_score = 0
 
