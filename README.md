@@ -16,7 +16,7 @@ Note that this is work in progress!
 TODO: You could also include the installation instructions and show some examples of usage.
 
 
-TODO: Add cli
+TODO: Add usage!
 
 TODO: If you have dependencies, you should absolutely list them with their expected versions in a requirements.txt file or a higher-level tool such as flit, poetry, or Pipenv.
 
