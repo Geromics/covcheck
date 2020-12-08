@@ -1,0 +1,5 @@
+# The required python version is > 3.6
+
+pytest >= 3.3.2
+coverage >= 5.3
+
