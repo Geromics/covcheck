@@ -55,7 +55,7 @@ def test_from_file():
 
 
 if __name__ == '__main__':
+    test_constructor()
     test_get_mock_individual()
     test_to_file()
     test_from_file()
-    test_individual()

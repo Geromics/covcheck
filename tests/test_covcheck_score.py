@@ -1,41 +1,43 @@
 from individual.individual import get_mock_individual
 from covcheck_score import *
 
-i1_id = '6117323d'
-i2_id = '4c2a904b'
-i3_id = 'deadbeef'
+i1 = get_mock_individual('6117323d')
+i2 = get_mock_individual('4c2a904b')
+i3 = get_mock_individual('deadbeef')
+i4 = get_mock_individual('1c272047')
+i5 = get_mock_individual('71768b5e')
 
 def test_score_individual_by_age():
-    i = get_mock_individual(i1_id)
-    s = score_individual_by_age(i)
-    assert s == 144
+    s = score_individual_by_age(i1)
+    assert s == 159.000
 
-    i = get_mock_individual(i2_id)
-    s = score_individual_by_age(i)
-    assert s == 0
+    s = score_individual_by_age(i2)
+    assert s ==   0
 
-    i = get_mock_individual(i3_id)
-    s = score_individual_by_age(i)
-    assert s == 16
+    s = score_individual_by_age(i3)
+    assert s ==   2.950
+
+    s = score_individual_by_age(i4)
+    assert s is None
 
 
 def test_score_individual_by_snp():
-    i = get_mock_individual(i1_id)
-    s = score_individual_by_snp(i)
+    s = score_individual_by_snp(i1)
     assert s == 0.464
 
-    i = get_mock_individual(i2_id)
-    s = score_individual_by_snp(i)
+    s = score_individual_by_snp(i2)
     assert s == 0.5885
 
-    i = get_mock_individual(i3_id)
-    s = score_individual_by_snp(i)
+    s = score_individual_by_snp(i3)
     assert s == 0.713
-    
+
+    s = score_individual_by_snp(i4)
+    assert s == 0.5885
+
+    s = score_individual_by_snp(i5)
+    assert s is None
 
 
 if __name__ == '__main__':
-    test_get_mock_individual()
-    test_to_file()
-    test_from_file()
-    test_individual()
+    test_score_individual_by_age()
+    test_score_individual_by_snp()
