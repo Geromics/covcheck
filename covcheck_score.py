@@ -31,6 +31,7 @@ def score_individual_by_age(individual):
     elif individual.age < 79:
         return 79.750
 
+    # Age is 80+
     return 159
 
 
@@ -43,12 +44,17 @@ def score_individual_by_snp(individual):
     Below we assume statistical independence of the two variables!
 
     See the README.md for details.
-
     """
+
     snp_score = 0
     baseline_cfr = 0.1
 
     # TODO: Remove magic knowledge using a SNP object?
+    # TODO: This is really crappy code!
+
+    if len(set(('rs12329760', 'rs75603675')) & set(individual.snps)) == 0:
+        return None
+
     for snp_id, alleles in individual.snps.items():
         if snp_id == 'rs12329760':
             # Each C adds 0.2320
@@ -60,10 +66,5 @@ def score_individual_by_snp(individual):
 
     snp_score = snp_score / baseline_cfr
 
-
-    ## TODO: The intention here is to return None if no snp exists (e.g. is currently wrong!)
-    if snp_score > 0:
-        return snp_score
-    else:
-        return None
+    return snp_score
 

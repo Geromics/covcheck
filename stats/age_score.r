@@ -21,7 +21,8 @@
 ##    by Onder et al. (2020) as of 17th March.17,18
 
 
-case_fatality_rate_of_covid_19_by_age <-
+## case_fatality_rate_of_covid_19_by_age
+cfrbyage <-
     c(
         0.00, 0.00, 0.00, 0.00, #  0 to  9 years
         0.00, 0.00, 0.20, 0.00, # 10 to 19 years
@@ -33,8 +34,6 @@ case_fatality_rate_of_covid_19_by_age <-
         6.30, 4.80, 8.00, 12.8, # 70 to 79 years
         13.0, 15.6, 14.8, 20.2  # 80+      years
     )
-
-cfrbyage <- case_fatality_rate_of_covid_19_by_age
 
 ## Knowing R, there is probably a cleaner way to do this...
 cfrbyage.m <- matrix(cfrbyage, 9, byrow=TRUE)
@@ -53,40 +52,59 @@ rownames(cfrbyage.m) <- c(
 )
 
 colnames(cfrbyage.m) <- c(
- "Italy", "China",   "Spain", "Korea")
+    "Korea", "Spain", "China", "Italy"
+)
 
 cfrbyage.m
 
 ## In order to match the plot at Our World in Data, we turn the matrix
-## 'upside down'...
-cfrbyage.m <-
-    cfrbyage.m[ nrow(cfrbyage.m):1, ]
+## 'upside down' and 'back to front' ...
+cfrbyage.m.plot <-
+    cfrbyage.m[ nrow(cfrbyage.m):1, ncol(cfrbyage.m):1 ]
 
-
-
-
-barplot(t(cfrbyage.m), beside=TRUE, horiz=TRUE, col=c(5,6,7,4),
+barplot(t(cfrbyage.m.plot), beside=TRUE, horiz=TRUE, col=c(5,6,7,4),
         xlab='Case fatality rate (%)', ylab='Years')
 
-## There is no such thing as 'the average CFR'... However, lets
+
+
+## There is no such thing as the 'average CFR'... ... ... Hey! Lets
 ## pretend there is!
 cfronavg <- 0.1
 
 
-## Odds ratio (below we work with log odds for some reason)
+## Calculate the Odds Ratio
 cfrbyage.m / cfronavg
 
-apply(cfrbyage.m / cfronavg, 1, mean)
+## Mean Odds Ratio across all studies
+or.mean <-
+    apply(cfrbyage.m / cfronavg, 1, mean)
+or.mean
+
+or.sd <-
+    apply(cfrbyage.m / cfronavg, 1, sd)
+or.sd
+
+x <-
+    barplot(or.mean)
 
 
+
+
+
+barplot(log(or.mean+0.01), ylim=c(-15,+5.5))
+points(x, log(or.mean+or.sd))
+points(x, log(or.mean-or.sd))
+
+log(10)
 
 ## We add a very small CFR to allow for 0% CFR conversion to Log Odds
-lod <- log(cfrbyage.m + 0.01 / cfronavg)
+lod <- log((cfrbyage.m + 0.01) / cfronavg)
 lod
 
 barplot(t(lod), beside=TRUE, horiz=TRUE,
         col=c(5,6,7,4))
 
+barplot(log(mor+0.01), horiz=TRUE)
 
 ## To add insult to injury, lets average over all four studies...
 
@@ -101,3 +119,27 @@ barplot(rev(means))
 ## Me no stats good? Unprobable!
 barplot(rbind(means+stdevs, means,
               means-stdevs), beside=TRUE)
+
+
+
+## Got the age Odds Ratios above.
+
+## The SNP Odds Ratios are...
+baseline.cfr = 0.1
+
+## TT at rs12329760 = 0
+rs12329760.tt = 0
+
+## CT at rs12329760 = 0.146
+rs12329760.ct = 0.146 / baseline.cfr
+
+## CC at rs12329760
+rs12329760.cc = 0.146*2 / baseline.cfr
+rs12329760.cc
+
+rs75603675 = CC = 0
+rs75603675 = AC = 0.148
+rs75603675 = AA = 0.148*2
+
+
+    snp_score = snp_score / baseline_cfr

@@ -77,6 +77,7 @@ _mock_individuals = {
         }
     },
 
+    # No age
     '1c272047': {
         'snps': {
             'rs1234': 'GA',
@@ -86,12 +87,29 @@ _mock_individuals = {
         }
     },
 
+    # No (currently) matching SNPs
     '71768b5e': {
         'snps': {
             'rs9999': 'GA',
             'rs8888': 'TG',
             'rs11111111': 'TC',
             'rs22222222': 'CA'
+        }
+    },
+
+    # Max snp score
+    '6a061313': {
+        'snps': {
+            'rs12329760': 'CC',
+            'rs75603675': 'AA'
+        }
+    },
+
+    # Min snp score
+    '78d811e9': {
+        'snps': {
+            'rs12329760': 'TT',
+            'rs75603675': 'CC'
         }
     }
 

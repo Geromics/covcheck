@@ -38,6 +38,17 @@ def test_score_individual_by_snp():
     assert s is None
 
 
+    # These tests are for documenting purposes only...
+    i = get_mock_individual('6a061313')
+    s = score_individual_by_snp(i)
+    assert round(s, 2) == 5.88
+
+    # These tests are for documenting purposes only...
+    i = get_mock_individual('78d811e9')
+    s = score_individual_by_snp(i)
+    assert round(s, 2) == 0.00
+
+
 if __name__ == '__main__':
     test_score_individual_by_age()
     test_score_individual_by_snp()
