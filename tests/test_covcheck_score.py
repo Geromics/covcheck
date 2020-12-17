@@ -23,16 +23,16 @@ def test_score_individual_by_age():
 
 def test_score_individual_by_snp():
     s = score_individual_by_snp(i1)
-    assert s == 0.464
+    assert round(s, 2) == 2.92
 
     s = score_individual_by_snp(i2)
-    assert s == 0.5885
+    assert round(s, 2) == 2.94
 
     s = score_individual_by_snp(i3)
-    assert s == 0.713
+    assert round(s, 2) == 2.96
 
     s = score_individual_by_snp(i4)
-    assert s == 0.5885
+    assert round(s, 2) == 2.94
 
     s = score_individual_by_snp(i5)
     assert s is None

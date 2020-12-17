@@ -1,3 +1,4 @@
+import pytest
 from individual.individual import *
 
 def test_constructor():
@@ -20,6 +21,20 @@ def test_get_mock_individual():
     individual = get_mock_individual('deadbeef')
     assert isinstance(individual, Individual)
     assert individual.id == 'deadbeef'
+
+    individual = get_mock_individual('6117323d')
+    assert isinstance(individual, Individual)
+    assert individual.id == '6117323d'
+
+    with pytest.raises(KeyError):
+        individual = get_mock_individual('flappity flippers')
+
+
+def test_mock_individual():
+    individual = get_mock_individual('deadbeef')
+
+    ## For now, snps are just stored as dictionaries
+    assert isinstance(individual.snps, dict)
     assert individual.age == 42
     assert individual.snps['rs1234'] == 'GG'
 
