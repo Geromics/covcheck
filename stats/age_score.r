@@ -84,18 +84,23 @@ or.sd <-
     apply(cfrbyage.m / cfronavg, 1, sd)
 or.sd
 
-x <-
-    barplot(or.mean)
+
+x <- barplot(or.mean)
+
+my.ylim <-
+    c(min(or.mean-or.sd), max(or.mean+or.sd))
 
 
+barplot(or.mean, ylim=my.ylim)
+points(x, or.mean+or.sd)
+points(x, or.mean-or.sd)
 
 
+## Cludge in a log scale...
+barplot(log(or.mean+0.01))
 
-barplot(log(or.mean+0.01), ylim=c(-15,+5.5))
-points(x, log(or.mean+or.sd))
-points(x, log(or.mean-or.sd))
 
-log(10)
+## Trying a different way
 
 ## We add a very small CFR to allow for 0% CFR conversion to Log Odds
 lod <- log((cfrbyage.m + 0.01) / cfronavg)
@@ -104,7 +109,6 @@ lod
 barplot(t(lod), beside=TRUE, horiz=TRUE,
         col=c(5,6,7,4))
 
-barplot(log(mor+0.01), horiz=TRUE)
 
 ## To add insult to injury, lets average over all four studies...
 
@@ -113,7 +117,11 @@ means <-
 stdevs <-
     apply(lod, 1, sd)
 
-barplot(rev(means))
+x <-
+    barplot(means, ylim=c(-3, 6))
+
+points(x, means+stdevs)
+points(x, means-stdevs, pch=2)
 
 
 ## Me no stats good? Unprobable!
@@ -128,18 +136,62 @@ barplot(rbind(means+stdevs, means,
 baseline.cfr = 0.1
 
 ## TT at rs12329760 = 0
-rs12329760.tt = 0
+rs12329760.tt = 0.146*0 / baseline.cfr
 
 ## CT at rs12329760 = 0.146
-rs12329760.ct = 0.146 / baseline.cfr
+rs12329760.ct = 0.146*1 / baseline.cfr
 
 ## CC at rs12329760
 rs12329760.cc = 0.146*2 / baseline.cfr
-rs12329760.cc
-
-rs75603675 = CC = 0
-rs75603675 = AC = 0.148
-rs75603675 = AA = 0.148*2
 
 
-    snp_score = snp_score / baseline_cfr
+## CC at rs75603675
+rs75603675.cc = 0.148*0 / baseline.cfr
+rs75603675.ac = 0.148*1 / baseline.cfr
+rs75603675.aa = 0.148*2 / baseline.cfr
+
+
+## Produce some nice plots...
+
+install.packages("dotwhisker")
+
+library(dotwhisker)
+library(broom)
+library(dplyr)
+
+m1 <- lm(mpg ~ wt + cyl + disp + gear, data = mtcars)
+
+m1
+tidy(m1)
+
+dwplot(m1)
+dwplot(tidy(m1))
+
+m1.df <-
+    tidy(m1)
+
+m1.df
+m1.df$p.value <- 0
+m1.df$statistic <- 0
+
+dwplot(m1, style="distribution")
+
+
+age <- '50-59'
+age <- '60-69'
+
+ex1 <- 
+    data.frame(
+        term=c('age (60-70)', 'rs12329760', 'rs75603675'),
+        estimate=c(
+            or.mean[age],
+            rs12329760.ct,
+            rs75603675.ac
+        ),
+        std.error=c(
+            sqrt(or.sd[age]),
+            3, 3) 
+    )
+ex1
+
+dwplot(ex1, style="distribution")
