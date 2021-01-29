@@ -1,7 +1,9 @@
-import sys, argparse, json
+import sys, argparse, json, math
 
 from individual.individual import Individual
-from covcheck_score import score_individual_by_age, score_individual_by_snp
+from covcheck_score import \
+    score_individual_by_age, \
+    score_individual_by_snp
 
 version = '0.1.18'
 
@@ -44,23 +46,102 @@ def main():
 
 def get_report_text(age_score, snp_score):
 
-    a = describe_age_score(age_score)
-    b = describe_snp_score(snp_score)
-    c = describe_interaction(
-        age_score,
-        snp_score
-    )
-    
-    return f"{a}. {b}. {c}."
+    a = b = c = d = ""
 
-def describe_age_score(snp_score):
-    return "Man you're old!"
+    if age_score != None:
+        a = describe_age_score(age_score)
 
-def describe_snp_score(snp_score):
-    return "Your genome is fine brh!"
+    if snp_score != None:
+        c = describe_snp_score(snp_score)
 
-def describe_interaction(snp_score, age_score):
-    return "Although your genome does not put you at increased risk, your age is a significant factor that does put you at above average risk of severe COVID 19 infection. You should consider taking extra precautions such as hand washing, mask wearing and social distancing."
+    if age_score != None and snp_score != None:
+        b = describe_interaction_1(age_score, snp_score)
+        d = describe_interaction_2(age_score, snp_score)
+
+    return f"{a}{b}{c}{d}"
+
+
+def describe_age_score(score):
+
+    if score is None:
+        return ""
+
+    # Build up the description string part 1/3
+    desc = "By virtue of your age, "
+
+    # Conditional part 2/3
+    if score < 2:
+        desc += "you are at a slightly lower or negligible "
+    elif score < 3:
+        desc += "you are at a slightly increased "
+    else:
+        desc += "you are at an increased "
+
+    # Why is rounding so complicated in Python?
+    score = round(score, 1)
+
+    # Final part 3/3
+    desc += "risk of severe COVID-19 infection relative to other people " + \
+            f"({score} times as likely to have a severe infection). "
+
+    return desc
+
+
+def describe_snp_score(score):
+    if score is None:
+        return ""
+
+    # Build up the description string part 1/3
+    desc = "By inspecting your genome, "
+
+    # Conditional part 2/3
+    if score < 1:
+        desc += "you are at a slightly lower or negligible "
+    elif score < 3:
+        desc += "you are at a slightly increased "
+    else:
+        desc += "you are at an increased "
+
+    # Why is rounding so complicated in Python?
+    score = round(score, 1)
+
+    # Final part 3/3
+    desc += "risk of severe COVID-19 infection relative to other people " + \
+            f"({score} times as likely to have a severe infection). "
+
+    return desc
+
+
+def describe_interaction_1(age_score, snp_score):
+
+    diff = abs(math.log((age_score+0.001)/(snp_score+0.001)))
+
+    if diff > 5:
+        return "However, "
+    else:
+        return "Similarly, "
+
+
+def describe_interaction_2(age_score, snp_score):    
+    desc = ""
+
+    if math.log((age_score+0.001)/(snp_score+0.001)) > +5:
+        desc = "Although your genome does not put you at increased risk, your age is " \
+               "a significant factor that does put you at above average risk of " \
+               "severe COVID 19 infection. You should consider taking extra " \
+               "precautions such as hand washing, mask wearing and social " \
+               "distancing. "
+
+    if math.log((age_score+0.001)/(snp_score+0.001)) < -5:
+        desc = "Although your age does not put you at increased risk, your genome is " \
+               "a significant factor that does put you at above average risk of " \
+               "severe COVID 19 infection. You should consider taking extra " \
+               "precautions such as hand washing, mask wearing and social " \
+               "distancing. "
+
+    return desc
+
+
 
 
 if __name__ == "__main__":
@@ -68,7 +149,11 @@ if __name__ == "__main__":
 
 
 def test_something():
-    """Chains toghether all the other functions in the analysis."""
+    """Chains toghether all the other functions in the analysis.
+
+    TODO: Move this function into a test file.
+
+    """
 
     for individual_id in ["6117323d", "4c2a904b"]:
         i = Individual.from_file(f"tests/data/{individual_id}.json")
