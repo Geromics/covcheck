@@ -1,6 +1,7 @@
 
 ## What is CovCheck?
 
+
 The CovCheck analysis computes a personal genome report indicating
 'risk of severe symptoms' (CFR) from COVID-19 infection.
 
