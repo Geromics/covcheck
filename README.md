@@ -51,7 +51,7 @@ which is done by:
 
 
 Note, project dependncies are **not** managed by a high level tool
-such as flit, poetry, or Pipenv.
+such as flit, poetry or Pipenv.
 
 
 
