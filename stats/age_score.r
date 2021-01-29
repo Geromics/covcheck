@@ -176,13 +176,13 @@ m1.df$statistic <- 0
 
 dwplot(m1, style="distribution")
 
-
+age <- '10-19'
 age <- '50-59'
 age <- '60-69'
 
 ex1 <- 
     data.frame(
-        term=c('age (60-70)', 'rs12329760', 'rs75603675'),
+        term=c('age (10-19)', 'rs12329760', 'rs75603675'),
         estimate=c(
             or.mean[age],
             rs12329760.ct,
