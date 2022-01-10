@@ -91,11 +91,21 @@ Notes from the preprint...
 
 #### Additional references
 
-See:
-* https://qcovid.org/
-* https://alama.org.uk/covid-19-medical-risk-assessment/
-* https://europepmc.org/article/MED/32997097
-* http://europepmc.org/article/MED/31363735
+COVID:
+* QCovid® risk calculator
+    * https://qcovid.org/
+* The Association of Local Authority Medical Advisors (ALAMA), COVID-AGE
+    * https://alama.org.uk/covid-19-medical-risk-assessment/
+* Charlson Comorbidity Index
+    * https://www.mdcalc.com/charlson-comorbidity-index-cci
+* GenOMICC COVID-19 Study
+    * https://www.genomicsengland.co.uk/covid-19/
+
+Polygenic Risk Scores:
+* From Basic Science to Clinical Application of Polygenic Risk Scores: A Primer.
+    * https://europepmc.org/article/MED/32997097
+* Towards clinical utility of polygenic risk scores.
+    * http://europepmc.org/article/MED/31363735
 
 
 
