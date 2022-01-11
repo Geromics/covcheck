@@ -89,9 +89,9 @@ Notes from the preprint...
 
 
 
-#### Additional references
+### Additional references
 
-COVID:
+#### COVID:
 * QCovid® risk calculator
     * https://qcovid.org/
 * The Association of Local Authority Medical Advisors (ALAMA), COVID-AGE
@@ -99,13 +99,33 @@ COVID:
 * Charlson Comorbidity Index
     * https://www.mdcalc.com/charlson-comorbidity-index-cci
 * GenOMICC COVID-19 Study
+    * https://genomicc.org/
     * https://www.genomicsengland.co.uk/covid-19/
 
-Polygenic Risk Scores:
+
+#### Polygenic Risk Scores:
 * From Basic Science to Clinical Application of Polygenic Risk Scores: A Primer.
     * https://europepmc.org/article/MED/32997097
 * Towards clinical utility of polygenic risk scores.
     * http://europepmc.org/article/MED/31363735
+
+
+#### Papers studying the genetics of COVID
+* Genetic susceptibility of COVID-19: a systematic review of current evidence
+    * https://eurjmedres.biomedcentral.com/articles/10.1186/s40001-021-00516-8
+* Mapping the human genetic architecture of COVID-19
+    * https://www.nature.com/articles/s41586-021-03767-x
+* Identification of LZTFL1 as a candidate effector gene at a COVID-19 risk locus
+    * https://www.nature.com/articles/s41588-021-00955-3
+* The major genetic risk factor for severe COVID-19 is inherited from Neanderthals
+    * https://www.nature.com/articles/s41586-020-2818-3
+* Genetic mechanisms of critical illness in COVID-19
+    * https://www.nature.com/articles/s41586-020-03065-y
+* The quest to find genes that drive severe COVID
+    * https://www.nature.com/articles/d41586-021-01827-w
+* A catalog of associations between rare coding variants and COVID-19 outcomes
+    * https://www.medrxiv.org/content/10.1101/2020.10.28.20221804v2
+
 
 
 
