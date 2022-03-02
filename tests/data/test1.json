@@ -1,1 +1,1 @@
-{"id": "deadbeef", "age": 42, "snps": {"rs1234": "GG", "rs5678": "TT", "rs12329760": "TT", "rs75603675": "AA"}}
+{"id": "deadbeef", "age": 42, "snps": {"rs10490770": "TT"}, "extra": {"extra": {"note": "snp_1 protected middleaged"}}}

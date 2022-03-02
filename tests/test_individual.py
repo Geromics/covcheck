@@ -1,7 +1,11 @@
-import pytest
-from individual.individual import *
+
+#import pytest
+
+from individual.individual import Individual
+
 
 def test_constructor():
+
     individual = Individual('whatevs')
     assert isinstance(individual, Individual)
     assert individual.id == 'whatevs'
@@ -17,60 +21,33 @@ def test_constructor():
     assert individual.snps == {'rs1234': 'AG'}
 
 
-def test_get_mock_individual():
-    individual = get_mock_individual('deadbeef')
-    assert isinstance(individual, Individual)
-    assert individual.id == 'deadbeef'
-
-    individual = get_mock_individual('6117323d')
-    assert isinstance(individual, Individual)
-    assert individual.id == '6117323d'
-
-    with pytest.raises(KeyError):
-        individual = get_mock_individual('flappity flippers')
-
-
-def test_mock_individual():
-    individual = get_mock_individual('deadbeef')
-
-    ## For now, snps are just stored as dictionaries
-    assert isinstance(individual.snps, dict)
-    assert individual.age == 42
-    assert individual.snps['rs1234'] == 'GG'
-
-
 def test_to_file():
-    individual = get_mock_individual('deadbeef')
+    individual = Individual.from_file('tests/data/deadbeef.json')
+
     individual.to_file(filename='tests/data/test1.json', indent=None)
 
     with open('tests/data/test1.json') as f:
         result = f.read()
-    assert len(result) == 111
+    assert len(result) == 119
     assert result.count('\n') == 0
 
     individual.to_file(filename='tests/data/test2.json', indent=4)
 
     with open('tests/data/test2.json') as f:
         result = f.read()
-    assert len(result) == 163
-    assert result.count('\n') == 9
+    assert len(result) == 187
+    assert result.count('\n') == 11
 
 
 def test_from_file():
+
     individual = Individual.from_file('tests/data/deadbeef.json')
     assert individual.id == 'deadbeef'
     assert individual.age == 42
-    assert individual.snps['rs1234'] == 'GG'
-
-    individual2 = get_mock_individual('deadbeef')
-
-    print(individual)
-    print(individual2)
-    assert individual.__dict__ == individual2.__dict__
+    assert individual.snps['rs10490770'] == 'TT'
 
 
 if __name__ == '__main__':
     test_constructor()
-    test_get_mock_individual()
     test_to_file()
     test_from_file()

@@ -3,10 +3,13 @@ import json
 
 
 class Individual:
-    def __init__(self, id, age=None, snps=None):
+    def __init__(self, id, age=None, snps=None, **kwargs):
         self.id = id
         self.age = age
         self.snps = snps
+
+        if kwargs:
+            self.extra = kwargs
 
     def __str__(self):
         return json.dumps(self.__dict__)
@@ -20,6 +23,7 @@ class Individual:
 
     @classmethod
     def from_file(cls, filename):
+        """Create an individual from a simple JSON file."""
         with open(filename, 'r') as f:
             s = f.read()
         j = json.loads(s)
@@ -27,96 +31,23 @@ class Individual:
 
     @classmethod
     def from_api(cls, url):
-        """TODO!"""
+        """Create an individual from an API call. TODO"""
         pass
 
 
-def write_mock_individuals():
-    """Helper function to create some data for testing."""
-    ids = get_mock_individual_ids()
-    for id in ids:
-        i = get_mock_individual(id)
-        i.to_file()
+def _get_mock_individuals_for_testing(filename=None):
+    if filename is None:
+        filename = 'tests/data/mock_individuals.json'
 
+    with open(filename, 'r') as file:
+        individuals = json.loads(file.read())
 
-def get_mock_individual(id='deadbeef'):
-    return Individual(id, **_mock_individuals[id])
+        for id, i in individuals.items():
+            individuals[id] = Individual(id=id, **i)
 
-
-def get_mock_individual_ids():
-    return _mock_individuals.keys()
-
-
-_mock_individuals = {
-    '6117323d': {
-        'age': 93,
-        'snps': {
-            'rs1234': 'AA',
-            'rs5678': 'GG',
-            'rs12329760': 'CC',
-            'rs75603675': 'CC'
-        }
-    },
-
-    '4c2a904b': {
-        'age':  7,
-        'snps': {
-            'rs1234': 'AG',
-            'rs5678': 'GT',
-            'rs12329760': 'CT',
-            'rs75603675': 'AC'
-        }
-    },
-
-    'deadbeef': {
-        'age': 42,
-        'snps': {
-            'rs1234': 'GG',
-            'rs5678': 'TT',
-            'rs12329760': 'TT',
-            'rs75603675': 'AA'
-        }
-    },
-
-    # No age
-    '1c272047': {
-        'snps': {
-            'rs1234': 'GA',
-            'rs5678': 'TG',
-            'rs12329760': 'TC',
-            'rs75603675': 'CA'
-        }
-    },
-
-    # No (currently) matching SNPs
-    '71768b5e': {
-        'snps': {
-            'rs9999': 'GA',
-            'rs8888': 'TG',
-            'rs11111111': 'TC',
-            'rs22222222': 'CA'
-        }
-    },
-
-    # Max snp score
-    '6a061313': {
-        'snps': {
-            'rs12329760': 'CC',
-            'rs75603675': 'AA'
-        }
-    },
-
-    # Min snp score
-    '78d811e9': {
-        'snps': {
-            'rs12329760': 'TT',
-            'rs75603675': 'CC'
-        }
-    }
-
-}
+    return individuals
 
 
 if __name__ == '__main__':
-    print("writing mock individuals")
-    write_mock_individuals()
+    for i in _get_mock_individuals_for_testing():
+        print(i)
