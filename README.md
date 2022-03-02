@@ -5,7 +5,10 @@
 The CovCheck analysis computes a personal genome report indicating
 'risk of severe symptoms' (CFR) from COVID-19 infection.
 
-The risk analysis is based on published, peer-reviewed studies:
+The risk analysis is based on published, peer-reviewed studies aggregated here (please contribute):
+https://docs.google.com/spreadsheets/d/1ieO4jzxlyCtCzRKHywEWboD1s4zMdKJDtepmXVj6CC0
+
+See also:
 https://www.covid19hg.org/publications/
 
 Personal genome data and age (if provided) is read from a simple
