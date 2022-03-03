@@ -1,0 +1,10 @@
+{
+    "id": "deadbeef",
+    "age": 42,
+    "snps": {
+        "rs10490770": "TT"
+    },
+    "extra": {
+        "note": "snp_1 protected middleaged"
+    }
+}

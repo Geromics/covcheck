@@ -1,0 +1,60 @@
+{
+    "6117323d": {
+        "note": "snp_1 protected old",
+        "age": 93,
+        "snps": {
+            "rs10490770": "TT"
+        }
+    },
+
+    "4c2a904b": {
+        "note": "snp_1 protected young",
+        "age":  7,
+        "snps": {
+            "rs10490770": "TT"
+        }
+    },
+
+    "deadbeef": {
+        "note": "snp_1 protected middleaged",
+        "age": 42,
+        "snps": {
+            "rs10490770": "TT"
+        }
+    },
+
+    "1c272047": {
+        "note": "snp_1 protected, no age",
+        "snps": {
+            "rs10490770": "TT"
+        }
+    },
+
+    "71768b5e": {
+        "note": "no matching snp_1, no age",
+        "snps": {
+            "rs9999": "GA",
+            "rs8888": "TG",
+            "rs11111111": "TC",
+            "rs22222222": "CA"
+        }
+    },
+
+    "6a061313": {
+        "note": "max snp score",
+        "snps": {
+            "rs13078854": "GG",
+            "rs71325088": "CC",
+            "rs10490770": "TT"
+        }
+    },
+
+    "78d811e9": {
+        "note": "min snp score",
+        "snps": {
+            "rs13078854": "AA",
+            "rs71325088": "TT",
+            "rs10490770": "CC"
+        }
+    }
+}

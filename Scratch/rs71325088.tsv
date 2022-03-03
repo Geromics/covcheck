@@ -1,0 +1,21 @@
+Variation ID	Location	Distance from rs71325088	Consequence Type	r2	D'	Phenotypes	GWAS_Trait_Category	Source
+rs71325088	3:45821460-45821460	0	non_coding_transcript_exon_variant	undefined	undefined	COVID-19 critical illness vs population;	Other disease	Ensembl
+rs71619611	3:45829648-45829657	8188	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs35044562	3:45867532-45867532	46072	intron_variant	1.000000	1.000000		No trait reported	GWAS
+rs72893671	3:45809291-45809291	-12169	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs35652899	3:45867022-45867022	45562	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs35508621	3:45838989-45838989	17529	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs17713054	3:45818159-45818159	-3301	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs34326463	3:45858159-45858159	36699	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs17712877	3:45807268-45807268	-14192	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs35731912	3:45848457-45848457	26997	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs34288077	3:45847198-45847198	25738	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs13078854	3:45820440-45820440	-1020	non_coding_transcript_exon_variant	1.000000	1.000000		No trait reported	GWAS
+rs35624553	3:45825948-45825948	4488	3_prime_UTR_variant	1.000000	1.000000		No trait reported	Ensembl
+rs35081325	3:45848429-45848429	26969	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs67959919	3:45830416-45830416	8956	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs34668658	3:45802706-45802706	-18754	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs10490770	3:45823240-45823240	1780	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs13081482	3:45866624-45866624	45164	intron_variant	1.000000	1.000000		No trait reported	Ensembl
+rs73064425	3:45859597-45859597	38137	intron_variant	1.000000	1.000000	COVID-19 critical illness vs population	Other disease	GWAS
+rs11385942	3:45834968-45834969	13508	non_coding_transcript_exon_variant	1.000000	1.000000	Severe COVID-19 infection with respiratory failure analysis I;Severe COVID-19 infection with respiratory failure analysis II	Other disease	Ensembl
