@@ -64,6 +64,7 @@ for f in imputed_vcf_files:
                 dist = v.POS - x.POS
                 logging.info(
                     f"Same id, different positions: '{v.ID}': {v.POS}, {x.POS}, {dist}"
+
                 )
 
             else:

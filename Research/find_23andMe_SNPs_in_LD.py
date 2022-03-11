@@ -2,7 +2,8 @@ from collections import defaultdict
 
 import numpy as np
 
-from cyvcf2 import VCF
+import libs
+import ens
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -19,10 +20,16 @@ snps_of_interest = [
 # The imputed file is a shortcut we can use re. haplotypes
 imputed_vcf_chr_files = []
 for chr in [3, 6, 8, 12, 17, 19, 21]:
-    imputed_vcf_chr_files.append("/home/dan/Downloads/90365083240/" +
-    f"Sanger Imputation Server/hrc-eagle2.vcfs/{chr}.vcf.gz")
+    imputed_vcf_chr_files.append(
+        "/home/dan/Downloads/90365083240/" +
+        f"Sanger Imputation Server/hrc-eagle2.vcfs/{chr}.vcf.gz")
+
+# We're measuring LD, so...
+ld_populations = ens.get_ld_populations()
+logging.info(f"Got {len(ld_populations)} populations from Ensembl")
 
 
+# Begin
 logging.info(f"reading file '{t3andme_v3_file}'")
 t3andme_snps_by_pos = defaultdict(dict)
 t3andme_snps_by_ids = dict()
@@ -46,41 +53,19 @@ for chr, pos in t3andme_snps_by_pos.items():
 
 
 logging.info(f"opening imputed vcf chromosomes")
-imputed_snps_by_pos = defaultdict(dict)
 imputed_snps_by_ids = dict()
 for f in imputed_vcf_chr_files:
     logging.info(f"opening vcf '{f}'")
-    vcf = VCF(f)
-
-    for v in vcf:
-        # Fix missing IDs where we can...
-        if v.ID is None:
-            if v.POS in t3andme_snps_by_pos[v.CHROM]:
-                id = t3andme_snps_by_pos[v.CHROM][v.POS]
-                logging.debug(f"found missing snp '{id}'")
-                v.ID = id
-            else:
-                continue
-
-        # This is a can of worms (tri-allelic SNPs), see
-        # 'debug_imutation_results.py'
-        if v.ID in imputed_snps_by_ids:
-            imputed_snps_by_ids[v.ID] = None
-            continue
-
-        # Ignoring several can's of worms, see
-        # 'debug_imutation_results.py'
-        imputed_snps_by_pos[v.CHROM][v.POS] = v.ID
-        imputed_snps_by_ids[v.ID] = v
+    imputed_snps_by_ids = libs.get_imputed_snps_from_file(f)
 
     # DEBUGGING
     break
 
 
 # Get the 10 closest snps to the snps_of_interest
-close_snps = defaultdict(list)
+near_snps = dict()
 for id in snps_of_interest:
-    logging.info(f"Finding SNPs close to {id} in the 23andMe v3 array.")
+    logging.info(f"Finding SNPs near to {id} in the 23andMe v3 array.")
 
     if id not in imputed_snps_by_ids:
         logging.error(f"MISSING SNP '{id}'")
@@ -96,61 +81,29 @@ for id in snps_of_interest:
 
     min_index = np.argmin(delta)
 
+    near_snps[id] = dict()
     for near_idx in range(min_index-5, min_index+5):
         near_pos = t3andme_snps_np_pos[chr][near_idx]
-        logging.debug([id, delta[near_idx], near_pos, t3andme_snps_by_pos[chr][near_pos]])
+        near_snp = t3andme_snps_by_pos[chr][near_pos]
+        distance = delta[near_idx]
 
-        close_snps[id].append( t3andme_snps_by_pos[chr][near_pos] )
+        logging.debug([id, distance, near_pos, near_snp])
 
+        near_snps[id][near_snp] = {'dist': distance}
 
+        logging.info(f"Near SNP: '{near_snp}' ({distance})")
 
-import requests, sys
-     
-server = "https://rest.ensembl.org"
-ext = "/info/variation/populations/homo_sapiens?filter=LD"
-     
-r = requests.get(server+ext, headers={ "Content-Type" : "application/json"})
-     
-if not r.ok:
-     r.raise_for_status()
-     sys.exit()
-    
-decoded = r.json()
+        near_snps[id][near_snp]['pops'] = list()
+        for pop in ld_populations:
+            ld = ens.get_ld(id, near_snp, pop)
 
-for pop in decoded:
-    print(pop['name'])
+            near_snps[id][near_snp]['count'] = 0
+            for l in ld:
+                near_snps[id][near_snp]['pops'].append({'pop': pop, 'ld': l})
 
+                if float(l['r2']) > 0.6:
+                    near_snps[id][near_snp]['count'] += 1
 
-for id1, id2s in close_snps.items():
-
-    print(id1)
-
-    for id2 in id2s:
-        print(id2)
-        
-        for pop in decoded:
-            print(f"{pop}")
-
-            if not 'name' in pop:
-                continue
-
-            pop = pop['name']
-            ext = f"/ld/human/pairwise/{id1}/{id2}?population_name={pop}"
-
-            print(server+ext)
-    
-            r = requests.get(server+ext, headers={ "Content-Type" : "application/json"})
- 
-            if not r.ok:
-                r.raise_for_status()
-                sys.exit()
- 
-            decoded = r.json()
-            print(repr(decoded))
-            print('')              
-        print('')
-        print('')
-    print('')
-    print('')
-    print('')
-    
+        print(near_snps[id][near_snp]['count'])
+               
+               
