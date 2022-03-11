@@ -27,7 +27,16 @@ rs4801778
 rs13050728
 
 
-Need to find the haploblocks that they are on (across populations) and find the 23andMe SNPs that are on those haploblocks.
+Need to find the haploblocks that they are on (across populations) and
+find the 23andMe SNPs that are on those haploblocks...
+
+OK, lets do it...
 
 
+
+virtualenv mypy
+
+. mypy/bin/activate
+
+pip install PyVCF
 
