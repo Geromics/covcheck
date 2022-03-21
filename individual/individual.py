@@ -88,6 +88,26 @@ _mock_individuals = {
         }
     },
 
+    # One SNP missing
+    '44444444': {
+        'age':  7,
+        'snps': {
+            'rs1234': 'AG',
+            'rs5678': 'GT',
+            'rs75603675': 'AC'
+        }
+    },
+
+    # One SNP missing
+    'eeeeeeee': {
+        'age':  7,
+        'snps': {
+            'rs1234': 'AG',
+            'rs5678': 'GT',
+            'rs12329760': 'CT'
+        }
+    },
+
     # No (currently) matching SNPs
     '71768b5e': {
         'snps': {
