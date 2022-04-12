@@ -45,10 +45,14 @@ and run the code:
       --verbose, -v
 
 
-The only formal requirements (`requirements.txt`) are for testing,
+The only formal requirements (`requirements.txt`) are for testing:
+
+    pip install -r requirements.txt
+
+
 which is done by:
 
-    python3 -m pytest -v --cov .
+    python3 -m pytest -v .
 
 
 Note, project dependncies are **not** managed by a high level tool
