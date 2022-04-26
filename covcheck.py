@@ -1,4 +1,6 @@
 
+version = '0.2.1'
+
 import argparse
 import sys
 import json
@@ -10,10 +12,10 @@ from scores import \
     score_individual_by_age, \
     score_individual_by_snp_1
 
+
+# TODO: Links to --version below
 import logging
 logging.getLogger().setLevel(logging.DEBUG)
-
-version = '0.2.1'
 
 
 def main():
@@ -45,8 +47,8 @@ def main():
     a = score_individual_by_age(i)
     s = score_individual_by_snp_1(i)
 
-    logging.debug(a)
-    logging.debug(s)
+    logging.debug(f"Age score: {a}")
+    logging.debug(f"SNP score: {s}")
 
     i_report = {}
     i_report['id'] = i.id

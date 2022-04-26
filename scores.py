@@ -1,5 +1,5 @@
 
-# TODO: Remove magic knowledge by using a SNP object
+# TODO: Remove 'magic knowledge' by using a SNP Object?
 
 
 def score_individual_by_age(individual):

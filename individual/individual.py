@@ -1,6 +1,8 @@
 
 import json
 
+# TODO: Add logging?
+
 
 class Individual:
     def __init__(self, id, age=None, snps=None, **kwargs):
@@ -15,6 +17,7 @@ class Individual:
         return json.dumps(self.__dict__)
 
     def to_file(self, filename=None, indent=4):
+        """Write an individual to file."""
         if filename is None:
             filename = f"tests/data/{self.id}.json"
 
@@ -31,11 +34,12 @@ class Individual:
 
     @classmethod
     def from_api(cls, url):
-        """Create an individual from an API call. TODO"""
+        """TODO: Create an individual from an API call."""
         pass
 
 
 def _get_mock_individuals_for_testing(filename=None):
+    """Convenience function for unit testing."""
     if filename is None:
         filename = 'tests/data/mock_individuals.json'
 
@@ -49,5 +53,6 @@ def _get_mock_individuals_for_testing(filename=None):
 
 
 if __name__ == '__main__':
+    """Just for fun..."""
     for i in _get_mock_individuals_for_testing():
         print(i)
