@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "age_score": {
+      "type": "number"
+    },
+    "snp_score": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string",
+          "description": "There can be several different 'groups' of SNPs (SNP scores)  based on different genes having different effects on the trait(s) being scored."
+        },
+        "trait": {
+          "type": "string",
+          "description": "The trait being scored."
+        },
+        "snps": {
+          "type": "object",
+          "description": "A list of the SNPs used in this group.",
+          "properties": {
+            "rs13078854": {
+              "type": "object",
+              "description": "This auto generated schema is a bit borked...",
+              "properties": {
+                "effect_allele": {
+                  "type": "string"
+                },
+                "other_allele": {
+                  "type": "string"
+                },
+                "or": {
+                  "type": "number",
+                  "description": "The Odds Ratio for the effect SNP. e.g. An OR of 2 means 'twice as likely', an OR of 0.5 means 'half as likely'.",
+                }
+              },
+              "required": [
+                "effect_allele",
+                "other_allele",
+                "or"
+              ]
+            },
+            "rs71325088": {
+              "type": "object",
+              "description": "This auto generated schema is a bit borked...",
+              "properties": {
+                "effect_allele": {
+                  "type": "string"
+                },
+                "other_allele": {
+                  "type": "string"
+                },
+                "or": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "effect_allele",
+                "other_allele",
+                "or"
+              ]
+            },
+            "rs10490770": {
+              "type": "object",
+              "description": "This auto generated schema is a bit borked...",
+              "properties": {
+                "effect_allele": {
+                  "type": "string"
+                },
+                "other_allele": {
+                  "type": "string"
+                },
+                "or": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "effect_allele",
+                "other_allele",
+                "or"
+              ]
+            }
+          },
+          "required": [
+            "rs13078854",
+            "rs71325088",
+            "rs10490770"
+          ]
+        },
+        "score": {
+          "type": "object",
+          "description": "The actual score for the individual (based on the SNPs above).",
+          "properties": {
+            "rs10490770": {
+              "type": "object",
+              "properties": {
+                "imputed": {
+                  "type": "boolean"
+                },
+                "alleles": {
+                  "type": "string",
+                  "description": "The alleles the individual carries for this SNP.",
+                },
+                "or": {
+                  "type": "number",
+                  "description": "The Odds Ratio for this individual.",
+                }
+              },
+              "required": [
+                "imputed",
+                "alleles",
+                "or"
+              ]
+            }
+          },
+          "required": [
+            "rs10490770"
+          ]
+        }
+      },
+      "required": [
+        "group",
+        "trait",
+        "snps",
+        "score"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "age",
+    "age_score",
+    "snp_score"
+  ]
+}
