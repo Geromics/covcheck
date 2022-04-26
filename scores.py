@@ -1,6 +1,7 @@
 
 # TODO: Remove 'magic knowledge' by using a SNP Object?
 
+# TODO: Restructure the JSON to be more 'normal'.
 
 def score_individual_by_age(individual):
     """Score an individuals 'COVID risk' by age.
