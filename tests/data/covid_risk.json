@@ -1,0 +1,32 @@
+{
+    "trait": "severe infection",   
+    "groups": [
+        {
+            "group_id": "age",
+            "note": "This is literally the first idea that came to mind...",
+            "ranges": [
+                {"below": 10, "OR":   0.5},
+                {"below": 20, "OR":   1.5},
+                {"below": 30, "OR":   2.5},
+                {"below": 40, "OR":   4.5},
+                {"below": 50, "OR":   8.5},
+                {"below": 60, "OR":  16.5},
+                {"above": 89, "OR": 156.0}
+            ]
+        },
+        {
+            "group_id": "hap_1",
+            "snps": {
+                "rs13078854": {"effect_allele": "G", "other_allele": "A", "OR": 0.6},
+                "rs71325088": {"effect_allele": "C", "other_allele": "T", "OR": 1.9},
+                "rs10490770": {"effect_allele": "T", "other_allele": "C", "OR": 2.0}
+            },
+            "group_id": "hap_2",
+            "snps": {
+                "rs10000777": {"effect_allele": "A", "other_allele": "T", "OR": 3.6},
+                "rs10000888": {"effect_allele": "C", "other_allele": "T", "OR": 0.1},
+                "rs10000999": {"effect_allele": "C", "other_allele": "T", "OR": 8.0}
+            }
+        }
+    ]
+}

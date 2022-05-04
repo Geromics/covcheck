@@ -1,0 +1,11 @@
+{
+    "id": "1aaaaaaa",
+    "age": 98,
+    "snps": {
+        "rs10490770": "TT",
+        "rs71325088": "CT"
+    },
+    "extra": {
+        "note": "snp_1 protected middleaged"
+    }
+}

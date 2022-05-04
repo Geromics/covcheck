@@ -1,0 +1,18 @@
+{
+    "id": "dan.geromics",
+    "age": 44,
+    "snps": {
+        "rs6976":     "CT",
+        "rs11177":    "AG",
+        "rs12107036": "AG",
+        "rs10948172": "AA",
+        "rs9350591":  "CC",
+        "rs4836732":  "CT",
+        "rs10492367": "GG",
+        "rs835487":   "AA",
+        "rs8044769":  "CC"
+    },
+    "extra": {
+        "note": "snp_1 protected middleaged"
+    }
+}
