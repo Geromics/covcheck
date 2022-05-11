@@ -1,0 +1,24 @@
+{
+    "trait": "Osteoarthritis",   
+    "groups": [
+        {
+            "group_id": "age",
+            "note": "This is literally the first idea that came to mind..."
+        },
+        {
+            "group_id": "44",
+            "snps": {
+                "rs6976":{"effect_allele": "T", "other_allele": "C", "OR": 1.09},
+                "rs11177": {"effect_allele": "A", "other_allele": "G", "OR": 1.09},
+               "rs4836732":{"effect_allele": "C", "other_allele": "T", "OR": 1.04},
+               "rs9350591":{"effect_allele": "T", "other_allele": "C", "OR": 1.09},
+               "rs10492367":{"effect_allele": "T", "other_allele": "G", "OR": 1.06},
+                "rs835487":{"effect_allele": "G", "other_allele": "A", "OR": 1.05},
+                "rs12107036":{"effect_allele": "G", "other_allele": "A", "OR": 1.05},
+                "rs8044769":{"effect_allele": "C", "other_allele": "T", "OR": 1.07},
+                "rs10948172":{"effect_allele": "G", "other_allele": "A", "OR": 1.08}
+            }
+            
+        }
+    ]
+}
