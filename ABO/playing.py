@@ -6,9 +6,10 @@ class SNP:
     id: str
     snps: frozenset
 
-x = SNP('rs123', frozenset(['A', 'T']))
-y = SNP('rs123', frozenset(['A', 'T']))
-z = SNP('rs123', frozenset(['T', 'A']))
+
+x = SNP('rs123', frozenset('AT'))
+y = SNP('rs123', frozenset('AT'))
+z = SNP('rs123', frozenset('TA'))
 
 print(x)
 print(y)
