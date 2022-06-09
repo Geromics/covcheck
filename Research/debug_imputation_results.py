@@ -94,7 +94,7 @@ for f in imputed_vcf_files:
         imputed_snps_by_ids[v.ID] = v
 
     for genotype, count in what_to_call.items():
-        ```Lets see if we can interpret the call...
+        '''Lets see if we can interpret the call...
            0000 = REF/REF
            
            1000 = ALT1/REF
@@ -119,7 +119,7 @@ for f in imputed_vcf_files:
            1110 = ??
 
            1111 = ??
-        ```
+        '''
 
            
         print(genotype, count)
