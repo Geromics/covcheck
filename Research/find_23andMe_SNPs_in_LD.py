@@ -94,6 +94,7 @@ for id in snps_of_interest:
         logging.info(f"Near SNP: '{near_snp}' ({distance})")
 
         near_snps[id][near_snp]['pops'] = list()
+
         for pop in ld_populations:
             ld = ens.get_ld(id, near_snp, pop)
 
@@ -105,5 +106,3 @@ for id in snps_of_interest:
                     near_snps[id][near_snp]['count'] += 1
 
         print(near_snps[id][near_snp]['count'])
-               
-               

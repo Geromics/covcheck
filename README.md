@@ -48,11 +48,17 @@ and run the code:
 The only formal requirements (`requirements.txt`) are for testing,
 which is done by:
 
-    python3 -m pytest -v --cov .
+    python3 -m pytest -v .
 
 
 Note, project dependncies are **not** managed by a high level tool
 such as flit, poetry or Pipenv.
+
+You can install the requirements under a virtualenv like this:
+
+    virtualenv mypy
+    . mypy/bin/activate
+    pip install -r requirements.txt
 
 
 
