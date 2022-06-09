@@ -52,7 +52,7 @@ def score_individual_by_snp_1(individual):
 
     rs13078854, reported in PMID:33888907 Trans-ancestry analysis
       reveals genetic and nongenetic associations with COVID-19
-      susceptibility and severity. [Respiratory simptoms]. The G
+      susceptibility and severity. [Respiratory symptoms]. The G
       allele (G/A) is protective (OR 0.6).
 
     rs71325088, reported in PMID:33307546 Genetic mechanisms of
