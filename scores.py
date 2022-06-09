@@ -3,38 +3,45 @@
 
 # TODO: Restructure the JSON to be more 'normal'.
 
+import os
+import json
+import logging
+logging.basicConfig(level=logging.INFO)
+
 def score_individual_by_age(individual):
     """Score an individuals 'COVID risk' by age.
 
     See the analysis within stats/age_score.r to understand where the
     scores come from. Scores are 'odds ratios' of COVID-19 CFR risk.
 
-    TODO: Read this data from file?
-
     """
     if individual.age is None:
         return None
 
-    if individual.age < 9:
-        return 0
+    age_risk_scores = {}
 
-    elif individual.age < 19:
-        return 00.500
-    elif individual.age < 29:
-        return 01.050
-    elif individual.age < 39:
-        return 01.875
-    elif individual.age < 49:
-        return 02.950
-    elif individual.age < 59:
-        return 08.000
-    elif individual.age < 69:
-        return 27.000
-    elif individual.age < 79:
-        return 79.750
+    age_risk_scores_fn = 'data/age_risk_scores.json'
+    if os.path.exists(age_risk_scores_fn):
+        with open(age_risk_scores_fn) as fh:
+            staging = json.load(fh)
+            prev_key = None
+            for key, val in staging.items():
+                int_key = int(key)
+                age_risk_scores[int_key] = float(val)
+                if prev_key is not None and int_key <= prev_key:
+                    logging.warning(f"{age_risk_scores_fn} is incorrectly ordered. {int_key} before {prev_key}")
+                prev_key = int_key
+                #print(k,v)
+    else:
+        logging.warning(f"{age_risk_scores_fn} not found")
 
-    # Age is 80+
-    return 159
+    for age, risk_score in age_risk_scores.items():
+        if individual.age < age:
+            return risk_score
+
+    max_score = max(age_risk_scores.values())
+    logging.warning(f"failed to find a risk_score for age={age} type(age)={type(age)} using the max score {max_score}")
+    return max_score
 
 
 def score_individual_by_snp_1(individual):
