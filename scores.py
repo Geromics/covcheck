@@ -21,19 +21,17 @@ def score_individual_by_age(individual):
     age_risk_scores = {}
 
     age_risk_scores_fn = 'data/age_risk_scores.json'
-    if os.path.exists(age_risk_scores_fn):
+    if not os.path.exists(age_risk_scores_fn):
+        logging.warning(f"{age_risk_scores_fn} not found")
+    else:
         with open(age_risk_scores_fn) as fh:
-            staging = json.load(fh)
             prev_key = None
-            for key, val in staging.items():
+            for key, val in json.load(fh).items():
                 int_key = int(key)
                 age_risk_scores[int_key] = float(val)
                 if prev_key is not None and int_key <= prev_key:
                     logging.warning(f"{age_risk_scores_fn} is incorrectly ordered. {int_key} before {prev_key}")
                 prev_key = int_key
-                #print(k,v)
-    else:
-        logging.warning(f"{age_risk_scores_fn} not found")
 
     for age, risk_score in age_risk_scores.items():
         if individual.age < age:
