@@ -12,25 +12,18 @@ def score_individual_by_age(individual):
     """
     if individual.age is None:
         return None
-
-    if individual.age < 9:
-        return 0
-
-    elif individual.age < 19:
-        return  0.500
-    elif individual.age < 29:
-        return  1.050
-    elif individual.age < 39:
-        return  1.875
-    elif individual.age < 49:
-        return  2.950
-    elif individual.age < 59:
-        return  8.000
-    elif individual.age < 69:
-        return 27.000
-    elif individual.age < 79:
-        return 79.750
-
+    for age,odd in [
+        (9, 0),
+        (19, 0.500),
+        (29, 1.050)
+        (39, 1.875),
+        (49, 2.950),
+        (59, 8.000),
+        (69, 27.000),
+        (79, 79.750),
+    ]:
+        if individual.age < age:
+            return odd
     # Age is 80+
     return 159
 
