@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 
 imputed_vcf_files = []
 
-for chr in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,'X']:
+for chr in [*range(1, 24), 'X']:
     imputed_vcf_files.append("/home/dan/Downloads/90365083240/" +
     f"Sanger Imputation Server/hrc-eagle2.vcfs/{chr}.vcf.gz")
 
@@ -19,7 +19,7 @@ for f in imputed_vcf_files:
     imputed_snps_by_ids = dict()
     imputed_snps_to_kil = dict()
 
-    what_to_call = defaultdict(int)
+    genotype_calls = defaultdict(int)
 
     for v in VCF(f):
 
@@ -85,7 +85,7 @@ for f in imputed_vcf_files:
                 # I've given up trying to interpret the actual
                 # genotype, lets just log them:
 
-                what_to_call[ str(v.genotypes[0][0]) +
+                genotype_calls[ str(v.genotypes[0][0]) +
                               str(v.genotypes[0][1]) +
                               str(x.genotypes[0][0]) +
                               str(x.genotypes[0][1]) ] += 1
@@ -93,8 +93,8 @@ for f in imputed_vcf_files:
         imputed_snps_by_pos[v.CHROM][v.POS] = v.ID
         imputed_snps_by_ids[v.ID] = v
 
-    for genotype, count in what_to_call.items():
-        '''Lets see if we can interpret the call...
+    for genotype, count in genotype_calls.items():
+        """Lets see if we can interpret the call...
            0000 = REF/REF
            
            1000 = ALT1/REF
@@ -119,8 +119,6 @@ for f in imputed_vcf_files:
            1110 = ??
 
            1111 = ??
-        '''
-
+        """
            
         print(genotype, count)
-
