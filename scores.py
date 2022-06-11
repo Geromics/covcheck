@@ -29,6 +29,10 @@ def score_individual_by_age(individual):
             for key, val in json.load(fh).items():
                 int_key = int(key)
                 age_risk_scores[int_key] = float(val)
+
+                # reminder prev_key and everything below
+                # are not needed by the code
+                # their purpose is encouraging good user behavior
                 out_of_order = prev_key is not None and int_key <= prev_key
                 if out_of_order:
                     logging.warning(f"{age_risk_scores_fn} is incorrectly ordered. {int_key} before {prev_key}")
