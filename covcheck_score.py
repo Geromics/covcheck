@@ -1,3 +1,5 @@
+"""This module does blah blah."""
+
 ## TODO: Scores should be LOD risk ratios I think...
 
 def score_individual_by_age(individual):
@@ -16,19 +18,19 @@ def score_individual_by_age(individual):
     if individual.age < 9:
         return 0
 
-    elif individual.age < 19:
+    if individual.age < 19:
         return  0.500
-    elif individual.age < 29:
+    if individual.age < 29:
         return  1.050
-    elif individual.age < 39:
+    if individual.age < 39:
         return  1.875
-    elif individual.age < 49:
+    if individual.age < 49:
         return  2.950
-    elif individual.age < 59:
+    if individual.age < 59:
         return  8.000
-    elif individual.age < 69:
+    if individual.age < 69:
         return 27.000
-    elif individual.age < 79:
+    if individual.age < 79:
         return 79.750
 
     # Age is 80+
@@ -67,4 +69,3 @@ def score_individual_by_snp(individual):
     snp_score = snp_score / baseline_cfr
 
     return snp_score
-

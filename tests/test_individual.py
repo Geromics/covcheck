@@ -1,5 +1,5 @@
 import pytest
-from individual.individual import *
+from individual.individual import Individual, get_mock_individual
 
 def test_constructor():
     individual = Individual('whatevs')

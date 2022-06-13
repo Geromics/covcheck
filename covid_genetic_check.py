@@ -1,3 +1,4 @@
+
 import sys, argparse, json, math
 
 from individual.individual import Individual
@@ -5,7 +6,7 @@ from covcheck_score import \
     score_individual_by_age, \
     score_individual_by_snp
 
-version = '0.1.18'
+VERSION = '0.1.18'
 
 
 # TODO: Demo generating different text for different risk factors.
@@ -14,7 +15,7 @@ version = '0.1.18'
 def main():
     ap = argparse.ArgumentParser(description='Score an individual.')
 
-    ap.add_argument('--version', action='version', version=f'%(prog)s {version}')
+    ap.add_argument('--version', action='version', version=f'%(prog)s {VERSION}')
     ap.add_argument('--verbose', '-v', action='count', default=0)
 
     ap.add_argument('infile', type=argparse.FileType('r'),
@@ -48,13 +49,13 @@ def get_report_text(age_score, snp_score):
 
     a = b = c = d = ""
 
-    if age_score != None:
+    if age_score is not None:
         a = describe_age_score(age_score)
 
-    if snp_score != None:
+    if snp_score is not None:
         c = describe_snp_score(snp_score)
 
-    if age_score != None and snp_score != None:
+    if age_score is not None and snp_score is not None:
         b = describe_interaction_1(age_score, snp_score)
         d = describe_interaction_2(age_score, snp_score)
 
@@ -118,11 +119,11 @@ def describe_interaction_1(age_score, snp_score):
 
     if diff > 5:
         return "However, "
-    else:
-        return "Similarly, "
+
+    return "Similarly, "
 
 
-def describe_interaction_2(age_score, snp_score):    
+def describe_interaction_2(age_score, snp_score):
     desc = ""
 
     if math.log((age_score+0.001)/(snp_score+0.001)) > +5:
@@ -157,11 +158,10 @@ def test_something():
 
     for individual_id in ["6117323d", "4c2a904b"]:
         i = Individual.from_file(f"tests/data/{individual_id}.json")
-        age_score = cs.score_individual_by_age(i)
-        snp_score = cs.score_individual_by_snp(i)
-        report = get_report(age_score, snp_score)
+        age_score = score_individual_by_age(i)
+        snp_score = score_individual_by_snp(i)
+        report = get_report_text(age_score, snp_score)
 
         print(report)
 
     print("Done")
-

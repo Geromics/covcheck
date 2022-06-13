@@ -28,7 +28,7 @@ def test_individuals_for_sanity():
     assert 'rs75603675' in i5.snps
     assert 'rs75603675' not in i6.snps
     assert 'rs75603675' not in i7.snps
-    
+
 
 def test_score_individual_by_age():
     s = score_individual_by_age(i1)
