@@ -1,5 +1,5 @@
 ## TODO: Scores should be LOD risk ratios I think...
-
+import json
 def score_individual_by_age(individual):
     """Score an individuals 'COVID risk' by age.
 
@@ -12,28 +12,11 @@ def score_individual_by_age(individual):
     """
     if individual.age is None:
         return None
-
-    if individual.age < 9:
-        return 0
-
-    elif individual.age < 19:
-        return  0.500
-    elif individual.age < 29:
-        return  1.050
-    elif individual.age < 39:
-        return  1.875
-    elif individual.age < 49:
-        return  2.950
-    elif individual.age < 59:
-        return  8.000
-    elif individual.age < 69:
-        return 27.000
-    elif individual.age < 79:
-        return 79.750
-
-    # Age is 80+
-    return 159
-
+    age_risk_scores = json.load("age_risk_scores.json")
+    for age, risk_score in sorted(age_riskscores.items()):
+        if individual.age < age:
+            return risk_score
+    return None
 
 def score_individual_by_snp(individual):
     """Score an individuals 'COVID risk' using SNPs.
