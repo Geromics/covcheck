@@ -14,6 +14,9 @@ Personal genome data and age (if provided) is read from a simple
 **Note that this analyis is work in progress!!!**
 
 
+### CI/CD
+[![Python package](https://github.com/Geromics/covcheck/actions/workflows/python-package.yml/badge.svg)](https://github.com/Geromics/covcheck/actions/workflows/python-package.yml)
+
 
 ### Installation and Usage
 
