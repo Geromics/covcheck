@@ -1,5 +1,9 @@
+"""This is the main executable that actually produces the report."""
 
-import sys, argparse, json, math
+import sys
+import argparse
+import json
+import math
 
 from individual.individual import Individual
 from covcheck_score import \
@@ -12,20 +16,23 @@ VERSION = '0.1.18'
 # TODO: Demo generating different text for different risk factors.
 # TODO: Add logging instead of prints.
 
+
 def main():
-    ap = argparse.ArgumentParser(description='Score an individual.')
+    """The main function."""
 
-    ap.add_argument('--version', action='version', version=f'%(prog)s {VERSION}')
-    ap.add_argument('--verbose', '-v', action='count', default=0)
+    argp = argparse.ArgumentParser(description='Score an individual.')
 
-    ap.add_argument('infile', type=argparse.FileType('r'),
-                    help='JSON format file containing individual data')
+    argp.add_argument('--version', action='version', version=f'%(prog)s {VERSION}')
+    argp.add_argument('--verbose', '-v', action='count', default=0)
 
-    ap.add_argument('outfile', type=argparse.FileType('w'), nargs='?',
-                    default=sys.stdout,
-                    help='JSON format results file (default: <stdout>)')
+    argp.add_argument('infile', type=argparse.FileType('r'),
+                      help='JSON format file containing individual data')
 
-    args = ap.parse_args()
+    argp.add_argument('outfile', type=argparse.FileType('w'), nargs='?',
+                      default=sys.stdout,
+                      help='JSON format results file (default: <stdout>)')
+
+    args = argp.parse_args()
 
     print(f"Executing analysis for file '{args.infile.name}'")
 
@@ -46,24 +53,25 @@ def main():
 
 
 def get_report_text(age_score, snp_score):
+    """Builds the report text from the Genotype and Phenotype scores."""
 
-    a = b = c = d = ""
+    agetxt = snptxt = inter1 = inter2 = ""
 
     if age_score is not None:
-        a = describe_age_score(age_score)
+        agetxt = describe_age_score(age_score)
 
     if snp_score is not None:
-        c = describe_snp_score(snp_score)
+        snptxt = describe_snp_score(snp_score)
 
     if age_score is not None and snp_score is not None:
-        b = describe_interaction_1(age_score, snp_score)
-        d = describe_interaction_2(age_score, snp_score)
+        inter1 = describe_interaction_1(age_score, snp_score)
+        inter2 = describe_interaction_2(age_score, snp_score)
 
-    return f"{a}{b}{c}{d}"
+    return f"{agetxt}{inter1}{snptxt}{inter2}"
 
 
 def describe_age_score(score):
-
+    """Build a text to describe the age report."""
     if score is None:
         return ""
 
@@ -89,6 +97,7 @@ def describe_age_score(score):
 
 
 def describe_snp_score(score):
+    """Build a text to describe the snp report."""
     if score is None:
         return ""
 
@@ -114,7 +123,7 @@ def describe_snp_score(score):
 
 
 def describe_interaction_1(age_score, snp_score):
-
+    """Build a text to describe the first interaction of the age and snp report."""
     diff = abs(math.log((age_score+0.001)/(snp_score+0.001)))
 
     if diff > 5:
@@ -124,6 +133,7 @@ def describe_interaction_1(age_score, snp_score):
 
 
 def describe_interaction_2(age_score, snp_score):
+    """Build a text to describe the second interaction of the age and snp report."""
     desc = ""
 
     if math.log((age_score+0.001)/(snp_score+0.001)) > +5:
